@@ -99,8 +99,7 @@ Sharing Quantitative Results in Mass Spectrometry Metabolomics. Anal Chem.
 13. PMID: 30688441; PMCID: PMC6660005.
 }
 \seealso{
-Other MS object export and import formats.: 
-\code{\link{AlabasterParam}},
+Other MS object export and import formats.:
 \code{\link{PlainTextParam}}
 }
 \author{

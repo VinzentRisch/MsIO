@@ -185,72 +185,6 @@ be
 ```
 
 
-
-# *alabaster*-based formats
-
-The [alabaster framework](https://github.com/ArtifactDB/alabaster.base) and
-related Bioconductor package `r Biocpkg("alabaster.base")` implements methods to
-save a variety of R/Bioconductor objects to on-disk representations based on
-standard file formats like HDF5 and JSON. This ensures that Bioconductor objects
-can be easily read from other languages like Python and Javascript. With
-`AlabasterParam`, *MsIO* supports export of MS data objects into these storage
-formats. Below we export our example `MsExperiment` to a storage directory using
-the alabaster format.
-
-```{r}
-d <- file.path(tempdir(), "ms_experiment_export_alabaster")
-saveMsObject(mse, AlabasterParam(path = d))
-```
-
-The contents of the storage folder is listed below:
-
-```{r}
-dir(d, recursive = TRUE)
-```
-
-In contrast to the plain text format described in the previous section, that
-stores all data files into a single directory, the alabaster export is
-structured hierarchically into sub-folders by the MS data object's
-slots/components.
-
-To restore the object we use the `readMsObject()` function with an
-`AlabasterParam` parameter objects to define the used data storage format.
-
-```{r}
-mse_in <- readMsObject(MsExperiment(), AlabasterParam(d))
-mse_in
-
-```
-
-Also for this format, we can load parts of the data separately. We can load the
-MS data as a `Spectra` object from the respective subfolder of the data storage
-directory:
-
-```{r}
-s <- readMsObject(Spectra(), AlabasterParam(file.path(d, "spectra")))
-s
-```
-
-The import/export functionality is completely compatible with Bioconductor's
-alabaster framework and hence allows also to read the whole, or parts of the
-data directly using alabaster's `readObject()` method. The full `MsExperiment`
-is restored importing the full directory (i.e. providing the path to the
-directory containing the full export with the function's `path` parameter).
-
-```{r}
-mse_in <- readObject(path = d)
-mse_in
-```
-
-Alternatively, by providing a path to one of the MS object's components, it is
-possible to read only specific parts of the data. Below we read the sample
-annotation information as a `DataFrame` from the *sample_data* subfolder:
-
-```{r}
-readObject(path = file.path(d, "sample_data"))
-```
-
-
 # Loading data from *MetaboLights*
 
 The *MetaboLights* database contains a large collection of metabolomics datasets.
@@ -271,9 +205,9 @@ It is recommended to adjust these settings according to your specific study.
 ```{r}
 library(MsExperiment())
 # Prepare parameter
-param <- MetaboLightsParam(mtblsId = "MTBLS575", 
+param <- MetaboLightsParam(mtblsId = "MTBLS575",
                            assayName = paste0("a_MTBLS575_POS_INFEST_CTRL_",
-                                              "mass_spectrometry.txt"), 
+                                              "mass_spectrometry.txt"),
                            filePattern = "cdf$")
 
 # Load MsExperiment object
@@ -286,17 +220,17 @@ Next, we examine the `sampleData()` of our `mse` object:
 sampleData(mse)
 ```
 
-We observe that a large number of columns are present. Several parameters are 
-available in the `readMsObject()` function to simplify the `sampleData`. 
-Setting `keepOntology = FALSE` will remove columns related to ontology terms, 
-while `keepProtocol = FALSE` will remove columns related to protocol information. 
-The `simplify = TRUE` option (the default) removes NAs and merges columns 
-with different names but duplicate contents. You can set `simplify = FALSE` 
-to retain all columns. Below, we load the object again, this time simplifying 
+We observe that a large number of columns are present. Several parameters are
+available in the `readMsObject()` function to simplify the `sampleData`.
+Setting `keepOntology = FALSE` will remove columns related to ontology terms,
+while `keepProtocol = FALSE` will remove columns related to protocol information.
+The `simplify = TRUE` option (the default) removes NAs and merges columns
+with different names but duplicate contents. You can set `simplify = FALSE`
+to retain all columns. Below, we load the object again, this time simplifying
 the `sampleData`:
 
 ```{r}
-mse <- readMsObject(MsExperiment(), param, keepOntology = FALSE, 
+mse <- readMsObject(MsExperiment(), param, keepOntology = FALSE,
                     keepProtocol = FALSE, simplify = TRUE)
 ```
 

@@ -31,7 +31,6 @@ Imports:
     MsCoreUtils (>= 1.17.1),
     S4Vectors,
     ProtGenerics,
-    alabaster.base
 Suggests:
     BiocStyle (>= 2.5.19),
     faahKO,
@@ -43,8 +42,6 @@ Suggests:
     Spectra (>= 1.15.6),
     testthat,
     xcms,
-    alabaster.se,
-    alabaster.matrix,
     MsBackendMetaboLights (>= 0.99.1),
     BiocFileCache,
     QFeatures
@@ -58,16 +55,13 @@ Roxygen: list(markdown=TRUE)
 RoxygenNote: 7.3.2
 Collate:
     'PlainTextParam.R'
-    'AlabasterParam.R'
     'AllGenerics.R'
     'MetaboLightsParam.R'
     'MsBackend.R'
     'MsBackendMetaboLights.R'
     'MsBackendMzR.R'
     'MsExperiment.R'
-    'MsExperimentFiles.R'
     'Spectra.R'
     'mzTabParam.R'
     'XcmsExperiment.R'
     'utils.R'
-    'zzz.R'

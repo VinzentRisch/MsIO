@@ -280,8 +280,7 @@ lengths(sps_filt[1:3])
 lengths(sps_in[1:3])
 }
 \seealso{
-Other MS object export and import formats.: 
-\code{\link{AlabasterParam}},
+Other MS object export and import formats.:
 \code{\link{mzTabParam}}
 }
 \author{
