@@ -1,3 +1,4 @@
+#'@include PlainTextParam.R
 #' @rdname PlainTextParam
 setMethod("readMsObject", signature(object = "MsBackendMetaboLights",
                                     param = "PlainTextParam"),
